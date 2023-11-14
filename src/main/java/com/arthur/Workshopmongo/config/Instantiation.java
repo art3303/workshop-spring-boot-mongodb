@@ -1,6 +1,7 @@
 package com.arthur.Workshopmongo.config;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TimeZone;
 
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import com.arthur.Workshopmongo.domain.Post;
 import com.arthur.Workshopmongo.domain.User;
 import com.arthur.Workshopmongo.dto.AuthorDTO;
+import com.arthur.Workshopmongo.dto.CommentDTO;
 import com.arthur.Workshopmongo.repository.PostRepository;
 import com.arthur.Workshopmongo.repository.UserRepository;
 
@@ -41,6 +43,12 @@ public class Instantiation implements CommandLineRunner{
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO (maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acrodei feliz hoje!", new AuthorDTO(maria));
 		
+		CommentDTO c1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite", sdf.parse("22/03/2018"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/2018"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
